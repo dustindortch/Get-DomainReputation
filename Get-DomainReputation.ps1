@@ -7,7 +7,7 @@ Param(
     [Parameter(ValueFromPipelineByPropertyName)]
     [ValidateNotNullOrEmpty()]
     [String]
-    $DkimSelector
+    $DkimSelector = 'selector1'
 )
 
 PROCESS {
