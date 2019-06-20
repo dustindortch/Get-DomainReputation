@@ -26,19 +26,19 @@ PROCESS {
         } Else {
             $MxValue = ($Mx | Select-Object -ExpandProperty NameExchange) -join ';'
 
-            $Spf = Resolve-DnsName $D -Type txt -ErrorAction SilentlyContinue | Where-Object Strings -Like "*v=spf1*" | Select-Object Strings
+            $Spf = Resolve-DnsName $D -Type txt -ErrorAction SilentlyContinue | Where-Object Strings -Like "*v=spf1*" | Select-Object -ExpandProperty Strings
 
             If (@($Spf).Count -eq 0) {
                 $Spf = $False
             }
 
-            $Dkim = Resolve-DnsName "${DkimSelector}._domainkey.${D}"  -Type txt -ErrorAction SilentlyContinue | Where-Object Strings -Like "*v=dkim1*" | Select-Object Strings
+            $Dkim = Resolve-DnsName "${DkimSelector}._domainkey.${D}"  -Type txt -ErrorAction SilentlyContinue | Where-Object Strings -Like "*v=dkim1*" | Select-Object -ExpandProperty Strings
 
             If (@($Dkim).Count -eq 0) {
                 $Dkim = $False
             }
 
-            $Dmarc = Resolve-DnsName "_dmarc.${D}" -Type txt -ErrorAction SilentlyContinue | Where-Object Strings -Like "*v=dmarc1*" | Select-Object Strings
+            $Dmarc = Resolve-DnsName "_dmarc.${D}" -Type txt -ErrorAction SilentlyContinue | Where-Object Strings -Like "*v=dmarc1*" | Select-Object -ExpandProperty Strings
 
             If (@($Dmarc).Count -eq 0) {
                 $Dmarc = $False
